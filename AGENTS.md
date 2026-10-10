@@ -1,6 +1,6 @@
 # Convenciones del proyecto
 
-Presentación web de la actividad de segmentación de clientes, desarrollada localmente en 20 diapositivas con Next.js, Reveal.js y Tailwind CSS. El usuario autorizó desarrollar la presentación para explicar todo el proceso del notebook analítico. Las verificaciones de código, compilación y navegación en escritorio y móvil se completaron localmente; su resumen está en `README.md`. No presentar el despliegue ni el PDF académico como terminados.
+Presentación web de la actividad de segmentación de clientes, desarrollada localmente en 21 diapositivas con Next.js, Reveal.js y Tailwind CSS. El usuario autorizó desarrollar la presentación para explicar todo el proceso del notebook analítico y añadir un clasificador en la última diapositiva, con formulario y endpoint backend. Las verificaciones históricas de código, compilación y navegación en escritorio y móvil corresponden a la versión de 20 diapositivas; su resumen y alcance están en `README.md`. No presentar el despliegue ni el PDF académico como terminados.
 
 ## Dependencias
 

@@ -1067,6 +1067,7 @@ a:focus-visible {
   }
   .deck-app[data-view="reading"] .slides > .slide {
     display: block;
+    pointer-events: auto;
     position: relative;
     width: 100%;
     height: auto;
@@ -1391,4 +1392,327 @@ a:focus-visible {
 /* Keep the header inset consistent after each table variant sets its padding. */
 .data-table :where(thead) th {
   padding-top: 0;
+}
+
+.classifier-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 42px;
+  height: 100%;
+  min-height: 0;
+}
+.classifier-form {
+  min-width: 0;
+  padding-top: 6px;
+}
+.classifier-example {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 14px;
+  font-size: 17px;
+  color: var(--muted);
+}
+.classifier-example select {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  min-height: 44px;
+}
+.classifier-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 145px;
+  gap: 6px 18px;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+.classifier-field label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.classifier-letter {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--light);
+  color: var(--green);
+  font-size: 25px;
+}
+.classifier-field :where(label) small {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.classifier-input-wrap {
+  text-align: right;
+}
+.classifier-input-wrap input {
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  padding: 7px 10px;
+  font: inherit;
+  font-size: 25px;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ink);
+  border: 1px solid #9eafa3;
+  border-radius: 8px;
+  background: var(--paper);
+}
+.classifier-input-wrap span {
+  display: block;
+  margin-top: 3px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.classifier-form :is(input, select):focus-visible,
+.classifier-result:focus-visible {
+  outline: 3px solid #477db3;
+  outline-offset: 3px;
+}
+.classifier-form input[aria-invalid="true"] {
+  border-color: #a13f35;
+}
+.reveal .classifier-field-error,
+.reveal .classifier-error {
+  color: #94372f;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+  grid-column: 1 / -1;
+}
+.reveal .classifier-error {
+  background: #fbede7;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+.classifier-submit {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 58px;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--green);
+  color: white;
+  font-size: 21px;
+  font-weight: 550;
+  margin-top: 22px;
+}
+.classifier-submit:hover:not(:disabled) {
+  background: #1c4d3a;
+}
+.classifier-submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+.reveal .classifier-privacy {
+  margin: 12px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+  text-align: center;
+}
+.classifier-result {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 25px 30px;
+  background: var(--light);
+  border-radius: 16px;
+  font-size: 19px;
+  line-height: 1.4;
+}
+.reveal .classifier-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #41594c;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+.classifier-eyebrow > span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+.reveal .classifier-result h3 {
+  font-size: 36px;
+  letter-spacing: -1.2px;
+  margin-bottom: 10px;
+}
+.reveal .classifier-profile {
+  font-size: 19px;
+  margin-bottom: 18px;
+}
+.classifier-scores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  border-block: 1px solid #ccdbcf;
+  padding: 12px 0;
+  margin-bottom: 12px;
+}
+.classifier-scores > :where(div) {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
+.classifier-scores strong {
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.classifier-scores small {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.reveal .classifier-rule {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.classifier-action h4 {
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.reveal .classifier-action p {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+.reveal .classifier-kpi {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+  margin-bottom: 0;
+  color: #41594c;
+}
+.classifier-kpi strong {
+  display: block;
+  margin-bottom: 4px;
+}
+.classifier-warnings {
+  border-top: 1px solid #c9d5bd;
+  margin-top: 16px;
+  padding-top: 12px;
+  color: #67511e;
+}
+.reveal .classifier-warnings p {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+.classifier-empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+.classifier-empty-code {
+  display: flex;
+  gap: 12px;
+  margin: 22px 0 28px;
+}
+.classifier-empty-code > span {
+  display: grid;
+  place-items: center;
+  width: 75px;
+  height: 85px;
+  background: #dce9d9;
+  color: var(--green);
+  border-radius: 10px;
+  font-size: 43px;
+  font-weight: 600;
+}
+.reveal .classifier-empty p {
+  color: var(--muted);
+  font-size: 21px;
+  line-height: 1.5;
+  margin: 0;
+}
+.classifier-slide .slide-note {
+  font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  .classifier-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 24px;
+  }
+  .classifier-example {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 15px;
+  }
+  .classifier-field {
+    grid-template-columns: minmax(0, 1fr) 105px;
+    gap: 8px 12px;
+    padding: 16px 0;
+  }
+  .classifier-field label {
+    font-size: 17px;
+    gap: 9px;
+  }
+  .classifier-letter {
+    width: 28px;
+    height: 36px;
+    font-size: 20px;
+  }
+  .classifier-field :where(label) small {
+    font-size: 13px;
+  }
+  .classifier-input-wrap input {
+    font-size: 20px;
+    min-height: 48px;
+  }
+  .classifier-submit {
+    font-size: 18px;
+    min-height: 50px;
+  }
+  .classifier-result {
+    padding: 22px;
+    overflow-y: visible;
+  }
+  .reveal .classifier-result h3 {
+    font-size: 29px;
+  }
+  .reveal .classifier-profile,
+  .reveal .classifier-action p,
+  .reveal .classifier-empty p {
+    font-size: 17px;
+  }
+  .classifier-scores {
+    gap: 8px;
+  }
+  .classifier-scores > :where(div) {
+    gap: 8px;
+  }
+  .classifier-scores strong {
+    font-size: 27px;
+  }
+  .classifier-slide .slide-note {
+    font-size: 14px;
+  }
 }

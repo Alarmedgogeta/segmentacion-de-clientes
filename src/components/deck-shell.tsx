@@ -189,7 +189,7 @@ export default function DeckShell({ children, slides }: DeckShellProps) {
             !(
               event.target instanceof Element &&
               event.target.closest(
-                'button, a, input, textarea, select, summary, [contenteditable="true"]',
+                'button, a, input, textarea, select, summary, [contenteditable="true"], [data-classifier-result]',
               )
             ),
           transition: reducedMotion.matches ? "none" : "fade",

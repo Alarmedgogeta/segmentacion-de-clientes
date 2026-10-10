@@ -56,6 +56,23 @@ Las posiciones de celda son de base uno e incluyen celdas Markdown y de código.
 - El JSON no contiene rutas absolutas personales, entradas del entorno ni salidas completas del notebook. En él, los nombres de columnas identificadoras aparecen únicamente en el esquema y las comprobaciones agregadas de calidad. Estas restricciones del JSON no describen el contenido de la copia íntegra del notebook.
 - Para reproducir la presentación, usar este JSON con su hash. Para actualizar sus datos, ejecutar otra copia del notebook sin modificar los originales, exportar los mismos bloques con el mapeo anterior y repetir las conciliaciones; actualizar las huellas de este registro.
 
+## Clasificador de la diapositiva 21
+
+El 9 de octubre de 2026 el usuario solicitó añadir una diapositiva final con un formulario y un endpoint backend para conocer el perfil de un cliente. El simulador usa `POST /api/classify` y conserva la segmentación global existente; no genera otro notebook, entrena otro modelo ni recalcula los percentiles.
+
+| Elemento del simulador | Fuente en el JSON y tratamiento |
+| --- | --- |
+| Puntajes RFM | `scoring.cuts`, exportado de la celda 17. R: 2, 4, 7, 12; F: 2, 3, 5, 7; M: 25, 56.25, 120, 450. Se conserva el cierre por la derecha y el sentido inverso de Recency. |
+| Regla, prioridad y descripción del perfil | `scoring.rules`, celda 19. Se aplican las seis condiciones en el orden del notebook; la prioridad devuelta es su posición de 1 a 6. La descripción usa `interpretation`, no los promedios de otros clientes del segmento. |
+| Nombre y color | `segments`, celdas 20, 23 y 26. |
+| Acción propuesta y KPIs | `actionPlans`, celda 35. El campo de respuesta `segment.kpi` contiene el texto de `kpis`; no representa un KPI calculado para la nueva entrada. |
+| Seis ejemplos precargados | `scoring.examples`, celdas 19 y 20; se conservan RFM y puntajes, sin incorporar identificadores. |
+| Advertencias de rango | Mínimos y máximos de `descriptives`, celda 8: Recency 0–24, Frequency 1–12 y Monetary 6.25–2100. No se convierten en puntos de corte ni en límites de rechazo del modelo. |
+
+El backend requiere recencia entera no negativa, frecuencia entera de al menos una compra y Monetary finito no negativo, con margen ya incorporado y expresado en u.m. Los tres campos tienen el límite técnico de `Number.MAX_SAFE_INTEGER` (`9007199254740991`); recencia y frecuencia deben ser enteros seguros. Los valores válidos fuera del rango observado reciben un segmento y una advertencia; los inválidos se rechazan. Las entradas y sus resultados se procesan sin persistencia y no se incorporan al JSON ni al notebook. El contrato HTTP, sus ejemplos y estados de error están en [README.md](README.md#clasificador-de-clientes).
+
+Esta clasificación es una aplicación de reglas descriptivas. No prueba abandono ni predice rentabilidad, CLV o éxito de una acción. La falta de período confirmado para Frequency/Monetary limita la comparación con clientes externos; la ventana propuesta de 90 días de los KPIs no resuelve esa falta. Los resultados de la auditoría histórica de las primeras 20 diapositivas se conservan abajo con su fecha y alcance.
+
 ## Mantenimiento de la copia descargable
 
 Cuando cambie el notebook fuente, copiarlo íntegro a `public/notebooks/actividad2_segmentacion_clientes.ipynb`, sin limpiar salidas ni editar la copia de forma independiente. Comprobar igualdad byte por byte y SHA-256 y actualizar ambas huellas de este documento. Si cambian sus resultados, regenerar y verificar también el JSON y las observaciones de la presentación. Para ejecutar la descarga se requieren el `requirements_actividad2.txt` de la actividad original y ambos archivos CSV/XLSX en una subcarpeta `datos/` junto al notebook; esos archivos permanecen fuera de este repositorio.

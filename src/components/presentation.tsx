@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import data from "@/data/notebook-data.json";
 import { Bars, colors, Histogram, number, Scatter } from "./charts";
+import CustomerClassifier from "./customer-classifier";
 import DeckShell from "./deck-shell";
 
 const slides = [
@@ -83,6 +84,11 @@ const slides = [
     id: "decisiones",
     chapter: "Decidir",
     title: "Cinco decisiones para poner a prueba",
+  },
+  {
+    id: "clasificador",
+    chapter: "Simular",
+    title: "¿Qué perfil tiene este cliente?",
   },
 ] as const;
 
@@ -1037,6 +1043,22 @@ export default function Presentation() {
           <br />
           <strong>Medir nos dice cuáles funcionan.</strong>
         </p>
+      </Slide>
+      <Slide
+        index={20}
+        title="¿Qué perfil tiene este cliente?"
+        lead="Introduce su comportamiento de compra y descubre su segmento RFM."
+        className="classifier-slide"
+        note="Referencia: cortes globales del notebook. Usa el mismo período para frecuencia y valor; su duración no está especificada en la base. El perfil orienta una propuesta comercial, no predice abandono ni CLV."
+      >
+        <CustomerClassifier
+          examples={data.scoring.examples.map((example) => ({
+            label: example.segment,
+            recency: example.Recency,
+            frequency: example.Frequency,
+            monetary: example.Monetary,
+          }))}
+        />
       </Slide>
     </DeckShell>
   );

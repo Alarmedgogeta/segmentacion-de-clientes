@@ -14,6 +14,7 @@
     "start": "next start",
     "lint": "biome check .",
     "typecheck": "next typegen && tsc --noEmit",
+    "test:classifier": "node --experimental-strip-types --test scripts/test-classifier.mjs",
     "format": "biome check --write ."
   },
   "dependencies": {
