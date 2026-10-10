@@ -1,5 +1,18 @@
 # Procedencia de los datos de la presentación
 
+## Ampliación A/B — 10 de octubre de 2026
+
+Las diapositivas 18–23 explican un diseño experimental propuesto, no campañas ejecutadas. Las hipótesis y el ejemplo se mantienen en `src/data/ab-plan.ts` y se presentan mediante `src/components/ab-slides.tsx`; no se incorporan al JSON exportado del notebook.
+
+- **Observado en el notebook:** nombres y tamaños de segmentos; 162 Potenciales y 38.8% de reclasificación con referencias por categoría. El 38.8% describe sensibilidad de clasificación, no superioridad causal de una política.
+- **Propuesto:** asignación aleatoria persistente por cliente, horizonte de 90 días sujeto al ciclo de compra, comparaciones por decisión, contribución neta por todos los asignados y reglas previas de adopción. No son requisitos oficiales del curso ni garantías de potencia.
+- **Hipotético:** reparto de 81 clientes por brazo, 16/24 compradores, contribución antes de costos experimentales de 1,296/1,458 u.m. y costos adicionales de 0/243 u.m. Solo el tamaño de referencia de Potenciales procede del notebook.
+- **Calculado sobre ese ejemplo:** recompra de 19.8%/29.6%, diferencia sin redondeo previo de +9.9 puntos porcentuales; contribución neta por asignado de 16/15 u.m., diferencia de −1 u.m. Los costos adicionales se descuentan una sola vez. Estas cifras no permiten estimar incertidumbre monetaria sin observaciones individuales.
+
+El rótulo visible identifica el ejemplo como hipotético. No se declara un ganador ni significancia estadística. La contribución del seguimiento propuesto no es el Monetary histórico ni una estimación de CLV. Se preservan el notebook original, su copia descargable, `notebook-data.json` y el clasificador global.
+
+El [plan](PLAN_DIAPOSITIVAS_AB.md) documenta el guion, las fórmulas y las fuentes metodológicas primarias: NIST y Microsoft Research. [AUDITORIA_AB.md](AUDITORIA_AB.md) registra las comprobaciones de esta ampliación, separadas de las auditorías históricas.
+
 ## Fuente y alcance
 
 `src/data/notebook-data.json` se deriva de `../actividad2_segmentacion_clientes.ipynb`, el notebook de resolución de la actividad. Los archivos originales están en `../datos/retail_sales_dataset.csv` y `../datos/retail_sales_dataset.xlsx`, fuera de este repositorio web. El JSON contiene agregados y observaciones limitadas para las visualizaciones; no incluye los datasets originales ni identificadores de clientes.
@@ -56,7 +69,9 @@ Las posiciones de celda son de base uno e incluyen celdas Markdown y de código.
 - El JSON no contiene rutas absolutas personales, entradas del entorno ni salidas completas del notebook. En él, los nombres de columnas identificadoras aparecen únicamente en el esquema y las comprobaciones agregadas de calidad. Estas restricciones del JSON no describen el contenido de la copia íntegra del notebook.
 - Para reproducir la presentación, usar este JSON con su hash. Para actualizar sus datos, ejecutar otra copia del notebook sin modificar los originales, exportar los mismos bloques con el mapeo anterior y repetir las conciliaciones; actualizar las huellas de este registro.
 
-## Clasificador de la diapositiva 21
+## Clasificador de la diapositiva final
+
+Se incorporó originalmente como diapositiva 21; la ampliación A/B del 10 de octubre lo desplaza a la 26 sin cambiar sus cortes, reglas ni endpoint.
 
 El 9 de octubre de 2026 el usuario solicitó añadir una diapositiva final con un formulario y un endpoint backend para conocer el perfil de un cliente. El simulador usa `POST /api/classify` y conserva la segmentación global existente; no genera otro notebook, entrena otro modelo ni recalcula los percentiles.
 

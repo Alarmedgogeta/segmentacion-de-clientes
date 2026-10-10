@@ -1,6 +1,6 @@
 # Convenciones del proyecto
 
-Presentación web de la actividad de segmentación de clientes, desarrollada localmente en 21 diapositivas con Next.js, Reveal.js y Tailwind CSS. El usuario autorizó desarrollar la presentación para explicar todo el proceso del notebook analítico y añadir un clasificador en la última diapositiva, con formulario y endpoint backend. Las verificaciones históricas de código, compilación y navegación en escritorio y móvil corresponden a la versión de 20 diapositivas; su resumen y alcance están en `README.md`. No presentar el despliegue ni el PDF académico como terminados.
+Presentación web de la actividad de segmentación de clientes, con 26 diapositivas, Next.js, Reveal.js y Tailwind CSS, y un clasificador con formulario y backend en la última diapositiva. El usuario autorizó su desarrollo para explicar el notebook analítico y su ampliación con pruebas A/B (18–23). La [publicación en Vercel](https://segmentacion-de-clientes.vercel.app) y sus verificaciones se documentan en `README.md` y `AUDITORIA_AB.md`; conservar el alcance histórico de auditorías anteriores. El PDF académico y su entrega siguen pendientes: no confundir la web publicada con la entrega oficial.
 
 ## Dependencias
 
@@ -17,6 +17,7 @@ Presentación web de la actividad de segmentación de clientes, desarrollada loc
 - Verificar los cambios con `pnpm lint`, `pnpm typecheck` y `pnpm build`.
 - El contenido académico se desarrolla a partir de resultados verificados. No inventar cifras ni incorporar información privada al repositorio público.
 - Usar `src/data/notebook-data.json` para las cifras y consultar `DATA_PROVENANCE.md` para su fuente y mapeo. Mantener el JSON sin identificadores de clientes; no añadir los archivos CSV/XLSX al repositorio.
+- Mantener hipótesis y cifras didácticas A/B en `src/data/ab-plan.ts`, separadas del JSON observado. Rotular los ejemplos como hipotéticos; no presentarlos como resultados de campañas reales.
 
 ## Notebook descargable autorizado
 

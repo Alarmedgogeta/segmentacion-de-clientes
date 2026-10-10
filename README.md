@@ -1,10 +1,12 @@
 # Segmentación de clientes
 
-Presentación web de la actividad de segmentación de clientes, desarrollada localmente en **21 diapositivas** con Next.js, App Router, TypeScript, Reveal.js y Tailwind CSS. Explica el proceso del notebook: calidad de datos, descriptivos, comparaciones, scoring RFM, segmentos, perfiles, sensibilidad por categoría, acciones comerciales y medición. La última diapositiva incorpora un formulario para clasificar un cliente mediante un endpoint del backend.
+Presentación web de la actividad de segmentación de clientes, desarrollada en **26 diapositivas** con Next.js, App Router, TypeScript, Reveal.js y Tailwind CSS. Explica el proceso del notebook: calidad de datos, descriptivos, comparaciones, scoring RFM, segmentos, perfiles, sensibilidad por categoría, acciones comerciales y medición. Las diapositivas 18–23 desarrollan cómo evaluar las decisiones mediante pruebas A/B. La última incorpora un formulario para clasificar un cliente mediante un endpoint del backend.
 
-**Estado:** presentación desarrollada y verificada localmente, incluido el clasificador de la diapositiva 21. Las verificaciones nuevas y las históricas se distinguen más abajo. No se ha registrado despliegue ni entrega académica. El PDF solicitado por la consigna conserva sus requisitos y permanece pendiente.
+**Estado al 10 de octubre de 2026:** ampliación a 26 diapositivas implementada y verificada localmente; publicación pendiente de confirmar en [Vercel](https://segmentacion-de-clientes.vercel.app). La versión pública anterior tenía 21 diapositivas y correspondía al commit `b5dbe9c`. Las verificaciones nuevas y las históricas se distinguen más abajo. El PDF solicitado por la consigna y su entrega académica permanecen pendientes.
 
 ## Navegación
+
+**Bloque de pruebas A/B:** [guion y fundamento del bloque](PLAN_DIAPOSITIVAS_AB.md), autorizado e implementado el 10 de octubre de 2026. Conecta las cinco decisiones finales con comparaciones, costos y criterios para ampliar, ajustar o descartar una acción. Sustituye el piloto por seis diapositivas (18–23); límites, decisiones y clasificador pasan a 24, 25 y 26. La verificación y publicación se registran en [AUDITORIA_AB.md](AUDITORIA_AB.md).
 
 - En escritorio, usar las flechas del teclado o los botones anterior/siguiente para recorrer las diapositivas.
 - El índice permite ir directamente a una sección y el indicador muestra el avance.
@@ -40,7 +42,7 @@ Abrir `http://localhost:3000` para revisar la presentación local.
 
 ## Clasificador de clientes
 
-La diapositiva 21 envía los valores del formulario a `POST /api/classify`. El backend valida las entradas, asigna puntajes con los cortes globales del notebook y aplica sus seis reglas en el mismo orden. Devuelve el nombre y la interpretación del segmento, los puntajes RFM, la regla aplicada y una propuesta de acción con sus KPIs. No se entrena un modelo adicional ni se recalculan percentiles con cada consulta.
+La diapositiva 26 envía los valores del formulario a `POST /api/classify`. El backend valida las entradas, asigna puntajes con los cortes globales del notebook y aplica sus seis reglas en el mismo orden. Devuelve el nombre y la interpretación del segmento, los puntajes RFM, la regla aplicada y una propuesta de acción con sus KPIs. No se entrena un modelo adicional ni se recalculan percentiles con cada consulta.
 
 | Campo JSON | Entrada | Validación |
 | --- | --- | --- |
@@ -95,6 +97,8 @@ El resultado describe un perfil RFM según esta base; no estima CLV, probabilida
 
 ## Verificación y producción
 
+La ampliación A/B del 10 de octubre pasó lint sin advertencias, TypeScript y compilación de producción con Turbopack. Se revisaron las seis nuevas diapositivas y el cierre en escritorio, lectura móvil, índice, teclado, clasificador e integridad de fuentes. [AUDITORIA_AB.md](AUDITORIA_AB.md) registra el alcance y el cierre de los servidores.
+
 ```sh
 pnpm lint
 pnpm format
@@ -121,6 +125,18 @@ Los servidores iniciados para esas pruebas finalizaron; se confirmó el cierre d
 - Los seis perfiles se probaron desde el formulario. En producción se revisaron escritorio y móvil de 390 × 844, sin desbordamiento horizontal; los clics móviles funcionan al habilitar los eventos de puntero en lectura vertical. La presentación conserva 21 secciones.
 - Se comprobaron errores con foco en el campo, limpieza del resultado al editar, avisos fuera del rango observado, desplazamiento por teclado del resultado sin cambiar de diapositiva y mensaje de conexión fallida. La consola de producción no mostró advertencias ni errores durante el flujo correcto.
 - Servidores temporales: sesión `45696`, PID `55904`, y sesión `84640`, PID `56495`, ambos en `127.0.0.1:3103`. Se cerraron con SIGINT y se comprobó la desaparición de cada proceso y la liberación del puerto. El servidor preexistente en el puerto 3000 se conservó.
+
+### Revisión del proyecto y producción — 10 de octubre de 2026
+
+- `pnpm lint`, `pnpm typecheck` y las nueve pruebas de `pnpm test:classifier` aprobados con dependencias existentes, Node 24.19.0 y pnpm 11.19.0.
+- Comparación del clasificador TypeScript con el recálculo Python de los 1,000 clientes: cero diferencias en segmento o puntajes R/F/M. Los 2,800 valores numéricos derivados del JSON coinciden con los recálculos. Se recalcularon diez celdas numéricas en un proceso limpio; no fue una nueva ejecución integral del notebook en kernel Jupyter ni se regeneraron sus figuras.
+- `pnpm build --webpack` aprobado. Turbopack volvió a encontrar la restricción del sandbox al abrir un puerto temporal para CSS; no se alteró la configuración de producción.
+- 18 comprobaciones HTTP aprobadas en el sitio publicado: portada, notebook y 16 casos del API (seis ejemplos, errores de formato/valor, valores fuera de rango, charset y GET rechazado). Los POST devuelven `no-store`; la descarga pública es idéntica al original, con el SHA registrado en `DATA_PROVENANCE.md`.
+- Índice y clasificador revisados en producción a 1440×900 y 390×844. En móvil: 21 secciones, ninguna con `aria-hidden=true`, sin desbordamiento horizontal del documento. Se comprobaron Campeones→454 en escritorio y En riesgo→224 en móvil. No hubo errores ni advertencias de consola en el flujo revisado. La inspección visual nueva se concentró en portada, tabla de perfiles y clasificador; no reemplaza una auditoría completa de accesibilidad.
+- Despliegue contrastado mediante el [estado del commit en GitHub](https://api.github.com/repos/Alarmedgogeta/segmentacion-de-clientes/commits/b5dbe9c71021688411512ceda710265cd5a5a47c/status) y el [sitio público](https://segmentacion-de-clientes.vercel.app). No se inspeccionaron ajustes privados ni logs internos de Vercel.
+- No se instalaron paquetes, iniciaron servidores de aplicación ni cambiaron código, datos o despliegue. Esta revisión no acredita una instalación limpia ni una auditoría de vulnerabilidades.
+
+Mejoras pendientes: versionar el exportador/conciliación del JSON, reducir cifras/reglas repetidas en la presentación y completar la estructura accesible con `h1`, salto al contenido y enlaces nativos en el índice. Los cálculos actuales coinciden; estas recomendaciones no se implementaron en la revisión documental.
 
 ## Servidores de pruebas
 
@@ -150,7 +166,9 @@ Para añadir paquetes, usar `pnpm add -w nombre` o `pnpm add -w -D nombre`, cons
 - `src/app/api/classify/route.ts`: endpoint POST y validación del formato de la solicitud.
 - `src/lib/classifier.ts`: validación de valores, scoring y aplicación de reglas RFM.
 - `src/lib/classifier-types.ts`: contrato compartido del formulario y del endpoint.
-- `src/components/presentation.tsx`: contenido de las 21 diapositivas.
+- `src/components/presentation.tsx`: contenido y orden de las 26 diapositivas.
+- `src/components/ab-slides.tsx`: seis diapositivas de diseño y evaluación experimental.
+- `src/data/ab-plan.ts`: propuestas A/B y ejemplo hipotético, separados de los resultados del notebook.
 - `src/components/customer-classifier.tsx`: formulario, ejemplos y resultado del clasificador.
 - `src/components/deck-shell.tsx`: navegación, índice, pantalla completa y modo de lectura.
 - `src/components/charts.tsx`: gráficas basadas en los datos derivados.
@@ -158,6 +176,7 @@ Para añadir paquetes, usar `pnpm add -w nombre` o `pnpm add -w -D nombre`, cons
 - `public/notebooks/actividad2_segmentacion_clientes.ipynb`: copia exacta descargable del notebook con salidas guardadas.
 - `DATA_PROVENANCE.md`: trazabilidad del notebook y del proceso de exportación.
 - `AUDITORIA_PRESENTACION.md`: correspondencia por diapositiva, resultados de la revisión y ajustes de redacción.
+- `AUDITORIA_AB.md`: verificaciones de la ampliación a 26 diapositivas.
 - `postcss.config.mjs`: integración de Tailwind.
 - `pnpm-workspace.yaml`: política de dependencias.
 - `scripts/check-package-manager.mjs`: verificación de pnpm.

@@ -1,5 +1,13 @@
 import type { ReactNode } from "react";
 import data from "@/data/notebook-data.json";
+import {
+  AbDecision,
+  AbDesign,
+  AbExample,
+  AbPolicies,
+  AbReactivation,
+  AbRetention,
+} from "./ab-slides";
 import { Bars, colors, Histogram, number, Scatter } from "./charts";
 import CustomerClassifier from "./customer-classifier";
 import DeckShell from "./deck-shell";
@@ -74,7 +82,36 @@ const slides = [
     chapter: "Medir",
     title: "Definir qué significa mejorar",
   },
-  { id: "piloto", chapter: "Medir", title: "Probar, comparar y aprender" },
+  {
+    id: "piloto",
+    chapter: "Experimentar",
+    title: "¿La acción genera valor adicional?",
+  },
+  {
+    id: "ab-retener-desarrollar",
+    chapter: "Experimentar",
+    title: "Probar cómo retener y desarrollar",
+  },
+  {
+    id: "ab-reactivar-costos",
+    chapter: "Experimentar",
+    title: "Reactivar sin gastar más de lo que recuperamos",
+  },
+  {
+    id: "ab-politicas",
+    chapter: "Experimentar",
+    title: "¿También conviene probar a quién contactamos?",
+  },
+  {
+    id: "ab-ejemplo",
+    chapter: "Experimentar",
+    title: "Más recompra puede dejar menos margen",
+  },
+  {
+    id: "ab-decision",
+    chapter: "Experimentar",
+    title: "Ampliar, ajustar o descartar con una regla previa",
+  },
   {
     id: "limites",
     chapter: "Medir",
@@ -908,50 +945,66 @@ export default function Presentation() {
 
       <Slide
         index={17}
-        title="Probar, comparar y aprender."
-        lead="La segmentación sugiere a quién contactar. Un piloto permitiría saber si la acción aporta valor adicional."
-        note="Necesitamos asignación T/C, compras y fechas posteriores, categorías, ventas netas, contribución y costos. Compararíamos con incertidumbre y tamaño de muestra."
+        title="¿La acción genera valor adicional?"
+        lead="La segmentación orienta a quién atender. Una prueba A/B compara una acción con una alternativa definida."
+        className="ab-slide"
+        note="Propuesta: 90 días, ajustados al ciclo de compra antes de lanzar; no es la ventana histórica. Aleatorizar dentro de segmento y categoría cuando la población lo permita."
       >
-        <div className="pilot-flow">
-          <div>
-            <span>1</span>
-            <h3>Asignar al azar</h3>
-            <p>Tratamiento y control dentro de cada segmento y categoría.</p>
-          </div>
-          <div>
-            <span>2</span>
-            <h3>Observar 90 días</h3>
-            <p>
-              Misma ventana y seguimiento; ajustarla al ciclo real antes del
-              lanzamiento.
-            </p>
-          </div>
-          <div>
-            <span>3</span>
-            <h3>Comparar T − C</h3>
-            <p>Tasas en puntos porcentuales; medias en sus propias unidades.</p>
-          </div>
-        </div>
-        <div className="margin-formula">
-          <h3>Margen incremental por cliente</h3>
-          <p>
-            <span>Media en tratamiento</span>
-            <b>−</b>
-            <span>Media en control</span>
-          </p>
-          <small>
-            En ambos: valor con margen − costos adicionales de campaña, contando
-            a quienes no compran y descontando cada costo una sola vez.
-          </small>
-        </div>
-        <p className="takeaway">
-          Más recompra no siempre significa más valor. Las metas se fijarían con
-          una línea base comparable y costos reales.
-        </p>
+        <AbDesign />
       </Slide>
 
       <Slide
         index={18}
+        title="Probar cómo retener y desarrollar."
+        lead="Decisiones 1 y 2: tres hipótesis comerciales, una evaluación económica común."
+        className="ab-slide"
+        note="Son propuestas de ensayos separados. Los KPIs de comportamiento explican el resultado; el margen neto y los indicadores de protección determinan si conviene ampliarlo."
+      >
+        <AbRetention />
+      </Slide>
+
+      <Slide
+        index={19}
+        title="Reactivar sin gastar más de lo que recuperamos."
+        lead="Decisiones 3 y 4: comprobar cuánto aporta el contacto después de descontar su costo."
+        className="ab-slide"
+        note="Comprar después del mensaje no demuestra causalidad. CostoReactivacion90 divide costos entre compradores de B; no mide costo por reactivación incremental. Los conteos no garantizan potencia."
+      >
+        <AbReactivation />
+      </Slide>
+
+      <Slide
+        index={20}
+        title="¿También conviene probar a quién contactamos?"
+        lead="Decisión 5: comparar dos políticas de selección, manteniendo comparable la intervención."
+        className="ab-slide"
+        note="El 38.8% reclasificado muestra sensibilidad; no prueba qué política genera más valor. Este ensayo sería una segunda fase, separada de las pruebas de campaña."
+      >
+        <AbPolicies />
+      </Slide>
+
+      <Slide
+        index={21}
+        title="Más recompra puede dejar menos margen."
+        lead="Un caso didáctico de Potenciales: las dos métricas cuentan historias diferentes."
+        className="ab-slide ab-example-slide"
+        note="Contribución del período futuro hipotético, sin descontar costos dos veces. Sin datos individuales no estimamos el intervalo del margen ni declaramos un ganador; +9.9 pp usa tasas sin redondear."
+      >
+        <AbExample />
+      </Slide>
+
+      <Slide
+        index={22}
+        title="Ampliar, ajustar o descartar con una regla previa."
+        lead="La decisión combina relevancia económica, incertidumbre y efectos adversos al cierre previsto."
+        className="ab-slide"
+        note="La ausencia de significancia no demuestra equivalencia. No prolongar hasta obtener un resultado favorable; más días con los mismos clientes no crean nuevas unidades independientes."
+      >
+        <AbDecision />
+      </Slide>
+
+      <Slide
+        index={23}
         title="El valor futuro todavía está abierto."
         lead="Con esta fotografía podemos priorizar. Para estimar CLV o confirmar abandono necesitamos historia temporal."
         note="Los 90 días pertenecen al piloto propuesto. No son el período de los datos históricos ni permiten anualizar Monetary automáticamente."
@@ -998,7 +1051,7 @@ export default function Presentation() {
       </Slide>
 
       <Slide
-        index={19}
+        index={24}
         title="Cinco decisiones para poner a prueba."
         lead="La prioridad combina valor histórico, oportunidad y costo de contacto."
         className="closing"
@@ -1013,10 +1066,10 @@ export default function Presentation() {
                 <p>
                   {
                     [
-                      "Servicio y personalización; comprobar el margen antes de ampliar beneficios.",
-                      "Recomendaciones que desarrollen recompra según la categoría.",
-                      "Validar el ciclo de compra antes de invertir en incentivos.",
-                      "Automatizar y exigir contribución positiva antes de escalar.",
+                      "Probar acceso anticipado o complementos; ampliar si aportan margen.",
+                      "Probar un recordatorio por categoría; desarrollar recompra rentable.",
+                      "Validar elegibilidad y probar una invitación; el efecto debe justificar el costo.",
+                      "Probar mensajes por segmento; exigir contribución incremental antes de escalar.",
                     ][i]
                   }
                 </p>
@@ -1032,8 +1085,8 @@ export default function Presentation() {
             <div>
               <h3>Usar RFM con contexto</h3>
               <p>
-                El 38.8% cambia al usar referencias por categoría. Revisar la
-                selección y medir el efecto con grupos comparables.
+                Comparar políticas global y por categoría, con igual presupuesto
+                y acción. El 38.8% reclasificado no demuestra superioridad.
               </p>
             </div>
           </div>
@@ -1045,7 +1098,7 @@ export default function Presentation() {
         </p>
       </Slide>
       <Slide
-        index={20}
+        index={25}
         title="¿Qué perfil tiene este cliente?"
         lead="Introduce su comportamiento de compra y descubre su segmento RFM."
         className="classifier-slide"
