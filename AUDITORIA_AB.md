@@ -1,6 +1,6 @@
 # Verificación de la ampliación A/B
 
-**Fecha:** 10 de octubre de 2026. **Estado:** implementación y verificación local completas; publicación pendiente de comprobar.
+**Fecha:** 10 de octubre de 2026. **Estado:** implementación, verificación local y publicación completadas.
 
 ## Alcance
 
@@ -29,4 +29,8 @@ Estas comprobaciones no son una auditoría integral de accesibilidad ni una ejec
 
 ## Publicación
 
-Pendiente de verificar tras las pruebas locales. La versión pública anterior corresponde al commit `b5dbe9c` y tenía 21 diapositivas.
+- Commit de implementación: `245e684a16ff0e3f5f357104a4c77489b016e5bf`, enviado a `main`. [Estado de GitHub](https://api.github.com/repos/Alarmedgogeta/segmentacion-de-clientes/commits/245e684a16ff0e3f5f357104a4c77489b016e5bf/status): Vercel `success`, «Deployment has completed», **10 de octubre de 2026, 20:41:32 UTC / 14:41:32 Ciudad de México**.
+- [Despliegue de Vercel](https://vercel.com/alan-diaz-yanezs-projects/segmentacion-de-clientes/CmvNcufyq4eHRYthtFE81PDy3dds). [Inicio del bloque publicado](https://segmentacion-de-clientes.vercel.app/#/piloto).
+- Sitio público HTTP 200 con 26 IDs únicos, bloque A/B 18–23 y clasificador 26. El ejemplo hipotético se comprobó en el navegador; sin errores ni advertencias de consola. En móvil de 390×844, 26 secciones sin ocultamiento y ancho del documento de 390 px.
+- Notebook público HTTP 200 y SHA-256 idéntico al original. `POST /api/classify` HTTP 200: ejemplo Campeones → código 454; cabecera `Cache-Control: no-store`.
+- No se inspeccionaron ajustes privados ni logs internos de Vercel. La versión pública anterior (`b5dbe9c`) tenía 21 diapositivas y sus auditorías conservan su alcance histórico.

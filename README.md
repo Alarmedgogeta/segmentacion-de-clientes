@@ -2,7 +2,7 @@
 
 Presentación web de la actividad de segmentación de clientes, desarrollada en **26 diapositivas** con Next.js, App Router, TypeScript, Reveal.js y Tailwind CSS. Explica el proceso del notebook: calidad de datos, descriptivos, comparaciones, scoring RFM, segmentos, perfiles, sensibilidad por categoría, acciones comerciales y medición. Las diapositivas 18–23 desarrollan cómo evaluar las decisiones mediante pruebas A/B. La última incorpora un formulario para clasificar un cliente mediante un endpoint del backend.
 
-**Estado al 10 de octubre de 2026:** ampliación a 26 diapositivas implementada y verificada localmente; publicación pendiente de confirmar en [Vercel](https://segmentacion-de-clientes.vercel.app). La versión pública anterior tenía 21 diapositivas y correspondía al commit `b5dbe9c`. Las verificaciones nuevas y las históricas se distinguen más abajo. El PDF solicitado por la consigna y su entrega académica permanecen pendientes.
+**Estado al 10 de octubre de 2026:** ampliación a **26 diapositivas publicada y comprobada en [Vercel](https://segmentacion-de-clientes.vercel.app/#/piloto)**. El despliegue del commit `245e684` terminó a las **14:41:32 de Ciudad de México**; [AUDITORIA_AB.md](AUDITORIA_AB.md) registra la evidencia y las comprobaciones locales y públicas. La versión anterior tenía 21 diapositivas y correspondía al commit `b5dbe9c`. El PDF solicitado por la consigna y su entrega académica permanecen pendientes.
 
 ## Navegación
 
