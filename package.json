@@ -1,0 +1,35 @@
+{
+  "name": "segmentacion-de-clientes",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.13.0",
+    "pnpm": "11.19.0"
+  },
+  "scripts": {
+    "preinstall": "node scripts/check-package-manager.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "format": "biome check --write ."
+  },
+  "dependencies": {
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "reveal.js": "6.0.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.19.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "postcss": "8.5.23",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
+  }
+}

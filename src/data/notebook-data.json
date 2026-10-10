@@ -1,0 +1,6719 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "Actividad 2 · Segmentación de clientes",
+    "sourceNotebook": "../actividad2_segmentacion_clientes.ipynb",
+    "notebookSha256": "d06c63ab77a41fc903e0eb2544ce5d223017c8e816f627cef4235c5ebeff926f",
+    "datasetSha256": {
+      "retail_sales_dataset.csv": "0a724c78f2ec1f4937bd4bfd19558066d839b28ac2eab13c7f89a48545e4d747",
+      "retail_sales_dataset.xlsx": "ea4dfbcf74f5139475955a3ea58016cf639e704d3b514cb99e204f94656827f5"
+    },
+    "sourceCodeCellsExecuted": 15,
+    "pythonVersion": "3.12.14",
+    "packageVersions": {
+      "pandas": "2.2.3",
+      "numpy": "2.3.5",
+      "matplotlib": "3.11.2",
+      "openpyxl": "3.1.5"
+    },
+    "unit": "u.m.",
+    "recencyUnit": "días",
+    "frequencyMonetaryPeriod": null,
+    "cutoffDate": null,
+    "generatedFor": "Presentación web de la actividad autorizada",
+    "exportedIdentifiers": false,
+    "rawDatasetIncluded": false
+  },
+  "summary": {
+    "customers": 1000,
+    "columns": 10,
+    "segments": 6,
+    "monetaryTotal": 247113.0,
+    "distinctRfmCodes": 95,
+    "customers555": 20,
+    "categorySensitivityChangedCustomers": 388,
+    "categorySensitivityChangedShare": 38.800000000000004
+  },
+  "quality": {
+    "formatsEquivalent": true,
+    "numericTolerance": 1e-12,
+    "uniqueCustomers": 1000,
+    "missingCells": 0,
+    "duplicateRows": 0,
+    "originalFilesUnchanged": true,
+    "columns": [
+      {
+        "variable": "ID",
+        "dtype": "int64",
+        "missing": 0,
+        "distinctValues": 1000
+      },
+      {
+        "variable": "Customer ID",
+        "dtype": "object",
+        "missing": 0,
+        "distinctValues": 1000
+      },
+      {
+        "variable": "Region",
+        "dtype": "object",
+        "missing": 0,
+        "distinctValues": 4
+      },
+      {
+        "variable": "Gender",
+        "dtype": "object",
+        "missing": 0,
+        "distinctValues": 2
+      },
+      {
+        "variable": "Age",
+        "dtype": "int64",
+        "missing": 0,
+        "distinctValues": 47
+      },
+      {
+        "variable": "Product Category",
+        "dtype": "object",
+        "missing": 0,
+        "distinctValues": 3
+      },
+      {
+        "variable": "Average ticket",
+        "dtype": "int64",
+        "missing": 0,
+        "distinctValues": 5
+      },
+      {
+        "variable": "Recency",
+        "dtype": "int64",
+        "missing": 0,
+        "distinctValues": 25
+      },
+      {
+        "variable": "Frequency",
+        "dtype": "int64",
+        "missing": 0,
+        "distinctValues": 12
+      },
+      {
+        "variable": "Monetary",
+        "dtype": "float64",
+        "missing": 0,
+        "distinctValues": 110
+      }
+    ],
+    "checks": [
+      {
+        "check": "Filas duplicadas completas",
+        "cases": 0
+      },
+      {
+        "check": "Customer ID duplicados",
+        "cases": 0
+      },
+      {
+        "check": "ID auxiliares duplicados",
+        "cases": 0
+      },
+      {
+        "check": "Celdas numéricas no finitas",
+        "cases": 0
+      },
+      {
+        "check": "Edades fuera de 0–120 (alerta de plausibilidad)",
+        "cases": 0
+      },
+      {
+        "check": "Recency negativo o no entero",
+        "cases": 0
+      },
+      {
+        "check": "Frequency no positivo o no entero",
+        "cases": 0
+      },
+      {
+        "check": "Ticket o Monetary no positivos (para revisar)",
+        "cases": 0
+      },
+      {
+        "check": "Cadenas vacías o con espacios externos",
+        "cases": 0
+      }
+    ],
+    "categories": {
+      "Region": ["E", "N", "S", "W"],
+      "Gender": ["Female", "Male"],
+      "Product Category": ["Beauty", "Clothing", "Electronics"]
+    }
+  },
+  "descriptives": [
+    {
+      "variable": "Age",
+      "customers": 1000.0,
+      "mean": 41.392,
+      "std": 13.681429659122527,
+      "min": 18.0,
+      "p25": 29.0,
+      "median": 42.0,
+      "p75": 53.0,
+      "p90": 60.0,
+      "max": 64.0,
+      "skewness": -0.04881245380329,
+      "outlierCountIqr": 0.0
+    },
+    {
+      "variable": "Average ticket",
+      "customers": 1000.0,
+      "mean": 179.89,
+      "std": 189.68135627129232,
+      "min": 25.0,
+      "p25": 30.0,
+      "median": 50.0,
+      "p75": 300.0,
+      "p90": 500.0,
+      "max": 500.0,
+      "skewness": 0.736307778066544,
+      "outlierCountIqr": 0.0
+    },
+    {
+      "variable": "Recency",
+      "customers": 1000.0,
+      "mean": 7.16,
+      "std": 6.044910333573274,
+      "min": 0.0,
+      "p25": 3.0,
+      "median": 5.0,
+      "p75": 10.0,
+      "p90": 17.0,
+      "max": 24.0,
+      "skewness": 1.062732799028085,
+      "outlierCountIqr": 55.0
+    },
+    {
+      "variable": "Frequency",
+      "customers": 1000.0,
+      "mean": 4.536,
+      "std": 2.974483409190839,
+      "min": 1.0,
+      "p25": 2.0,
+      "median": 4.0,
+      "p75": 7.0,
+      "p90": 9.0,
+      "max": 12.0,
+      "skewness": 0.7010967009704,
+      "outlierCountIqr": 0.0
+    },
+    {
+      "variable": "Monetary",
+      "customers": 1000.0,
+      "mean": 247.113,
+      "std": 354.20060513030563,
+      "min": 6.25,
+      "p25": 30.0,
+      "median": 75.0,
+      "p75": 350.0,
+      "p90": 750.0,
+      "max": 2100.0,
+      "skewness": 2.165960998661471,
+      "outlierCountIqr": 83.0
+    }
+  ],
+  "ticketValueCounts": [
+    {
+      "ticket": 25.0,
+      "customers": 210
+    },
+    {
+      "ticket": 30.0,
+      "customers": 183
+    },
+    {
+      "ticket": 50.0,
+      "customers": 211
+    },
+    {
+      "ticket": 300.0,
+      "customers": 197
+    },
+    {
+      "ticket": 500.0,
+      "customers": 199
+    }
+  ],
+  "monetaryRatioCounts": [
+    {
+      "ratio": 0.25,
+      "customers": 333
+    },
+    {
+      "ratio": 0.3,
+      "customers": 333
+    },
+    {
+      "ratio": 0.35,
+      "customers": 334
+    }
+  ],
+  "groupSummaries": {
+    "Region": [
+      {
+        "group": "E",
+        "customers": 279,
+        "customerShare": 27.9,
+        "ageMean": 42.2652329749104,
+        "ticketMean": 175.3942652329749,
+        "recencyMean": 6.992831541218638,
+        "frequencyMean": 4.580645161290323,
+        "monetaryMean": 247.15412186379928
+      },
+      {
+        "group": "N",
+        "customers": 242,
+        "customerShare": 24.2,
+        "ageMean": 42.735537190082646,
+        "ticketMean": 171.9214876033058,
+        "recencyMean": 7.161157024793388,
+        "frequencyMean": 4.652892561983471,
+        "monetaryMean": 223.0340909090909
+      },
+      {
+        "group": "S",
+        "customers": 258,
+        "customerShare": 25.8,
+        "ageMean": 40.51550387596899,
+        "ticketMean": 187.81007751937983,
+        "recencyMean": 7.72093023255814,
+        "frequencyMean": 4.527131782945736,
+        "monetaryMean": 264.4796511627907
+      },
+      {
+        "group": "W",
+        "customers": 221,
+        "customerShare": 22.1,
+        "ageMean": 39.841628959276015,
+        "ticketMean": 185.0452488687783,
+        "recencyMean": 6.714932126696833,
+        "frequencyMean": 4.361990950226244,
+        "monetaryMean": 253.15384615384616
+      }
+    ],
+    "Gender": [
+      {
+        "group": "Female",
+        "customers": 510,
+        "customerShare": 51.0,
+        "ageMean": 41.35686274509804,
+        "ticketMean": 180.0686274509804,
+        "recencyMean": 7.207843137254902,
+        "frequencyMean": 4.509803921568627,
+        "monetaryMean": 251.3205882352941
+      },
+      {
+        "group": "Male",
+        "customers": 490,
+        "customerShare": 49.0,
+        "ageMean": 41.42857142857143,
+        "ticketMean": 179.70408163265307,
+        "recencyMean": 7.110204081632653,
+        "frequencyMean": 4.563265306122449,
+        "monetaryMean": 242.73367346938775
+      }
+    ],
+    "Product Category": [
+      {
+        "group": "Beauty",
+        "customers": 307,
+        "customerShare": 30.7,
+        "ageMean": 40.37133550488599,
+        "ticketMean": 184.05537459283389,
+        "recencyMean": 3.03257328990228,
+        "frequencyMean": 6.335504885993485,
+        "monetaryMean": 344.37296416938113
+      },
+      {
+        "group": "Clothing",
+        "customers": 351,
+        "customerShare": 35.1,
+        "ageMean": 41.94871794871795,
+        "ticketMean": 174.28774928774928,
+        "recencyMean": 6.002849002849003,
+        "frequencyMean": 4.962962962962963,
+        "monetaryMean": 266.90954415954417
+      },
+      {
+        "group": "Electronics",
+        "customers": 342,
+        "customerShare": 34.2,
+        "ageMean": 41.73684210526316,
+        "ticketMean": 181.90058479532163,
+        "recencyMean": 12.052631578947368,
+        "frequencyMean": 2.482456140350877,
+        "monetaryMean": 139.4890350877193
+      }
+    ]
+  },
+  "groupLeaders": [
+    {
+      "dimension": "Region",
+      "metric": "Ticket",
+      "group": "S",
+      "mean": 187.81007751937983,
+      "gapVsLowestPercent": 9.24177084410507
+    },
+    {
+      "dimension": "Region",
+      "metric": "Frequency",
+      "group": "N",
+      "mean": 4.652892561983471,
+      "gapVsLowestPercent": 6.669009979081664
+    },
+    {
+      "dimension": "Region",
+      "metric": "Monetary",
+      "group": "S",
+      "mean": 264.4796511627907,
+      "gapVsLowestPercent": 18.582612229712026
+    },
+    {
+      "dimension": "Gender",
+      "metric": "Ticket",
+      "group": "Female",
+      "mean": 180.0686274509804,
+      "gapVsLowestPercent": 0.20285895290486078
+    },
+    {
+      "dimension": "Gender",
+      "metric": "Frequency",
+      "group": "Male",
+      "mean": 4.563265306122449,
+      "gapVsLowestPercent": 1.1854480922803834
+    },
+    {
+      "dimension": "Gender",
+      "metric": "Monetary",
+      "group": "Female",
+      "mean": 251.3205882352941,
+      "gapVsLowestPercent": 3.5375869541187877
+    },
+    {
+      "dimension": "Product Category",
+      "metric": "Ticket",
+      "group": "Beauty",
+      "mean": 184.05537459283389,
+      "gapVsLowestPercent": 5.6043097377763695
+    },
+    {
+      "dimension": "Product Category",
+      "metric": "Frequency",
+      "group": "Beauty",
+      "mean": 6.335504885993485,
+      "gapVsLowestPercent": 155.2111508845432
+    },
+    {
+      "dimension": "Product Category",
+      "metric": "Monetary",
+      "group": "Beauty",
+      "mean": 344.37296416938113,
+      "gapVsLowestPercent": 146.88174518722437
+    }
+  ],
+  "distributions": {
+    "Recency": {
+      "label": "Días desde la última compra",
+      "median": 5.0,
+      "bins": [
+        {
+          "lower": -0.5,
+          "upper": 0.5,
+          "customers": 70,
+          "upperInclusive": false
+        },
+        {
+          "lower": 0.5,
+          "upper": 1.5,
+          "customers": 93,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1.5,
+          "upper": 2.5,
+          "customers": 78,
+          "upperInclusive": false
+        },
+        {
+          "lower": 2.5,
+          "upper": 3.5,
+          "customers": 88,
+          "upperInclusive": false
+        },
+        {
+          "lower": 3.5,
+          "upper": 4.5,
+          "customers": 82,
+          "upperInclusive": false
+        },
+        {
+          "lower": 4.5,
+          "upper": 5.5,
+          "customers": 94,
+          "upperInclusive": false
+        },
+        {
+          "lower": 5.5,
+          "upper": 6.5,
+          "customers": 90,
+          "upperInclusive": false
+        },
+        {
+          "lower": 6.5,
+          "upper": 7.5,
+          "customers": 37,
+          "upperInclusive": false
+        },
+        {
+          "lower": 7.5,
+          "upper": 8.5,
+          "customers": 40,
+          "upperInclusive": false
+        },
+        {
+          "lower": 8.5,
+          "upper": 9.5,
+          "customers": 34,
+          "upperInclusive": false
+        },
+        {
+          "lower": 9.5,
+          "upper": 10.5,
+          "customers": 45,
+          "upperInclusive": false
+        },
+        {
+          "lower": 10.5,
+          "upper": 11.5,
+          "customers": 42,
+          "upperInclusive": false
+        },
+        {
+          "lower": 11.5,
+          "upper": 12.5,
+          "customers": 41,
+          "upperInclusive": false
+        },
+        {
+          "lower": 12.5,
+          "upper": 13.5,
+          "customers": 15,
+          "upperInclusive": false
+        },
+        {
+          "lower": 13.5,
+          "upper": 14.5,
+          "customers": 22,
+          "upperInclusive": false
+        },
+        {
+          "lower": 14.5,
+          "upper": 15.5,
+          "customers": 13,
+          "upperInclusive": false
+        },
+        {
+          "lower": 15.5,
+          "upper": 16.5,
+          "customers": 14,
+          "upperInclusive": false
+        },
+        {
+          "lower": 16.5,
+          "upper": 17.5,
+          "customers": 12,
+          "upperInclusive": false
+        },
+        {
+          "lower": 17.5,
+          "upper": 18.5,
+          "customers": 15,
+          "upperInclusive": false
+        },
+        {
+          "lower": 18.5,
+          "upper": 19.5,
+          "customers": 10,
+          "upperInclusive": false
+        },
+        {
+          "lower": 19.5,
+          "upper": 20.5,
+          "customers": 10,
+          "upperInclusive": false
+        },
+        {
+          "lower": 20.5,
+          "upper": 21.5,
+          "customers": 17,
+          "upperInclusive": false
+        },
+        {
+          "lower": 21.5,
+          "upper": 22.5,
+          "customers": 12,
+          "upperInclusive": false
+        },
+        {
+          "lower": 22.5,
+          "upper": 23.5,
+          "customers": 11,
+          "upperInclusive": false
+        },
+        {
+          "lower": 23.5,
+          "upper": 24.5,
+          "customers": 15,
+          "upperInclusive": true
+        }
+      ]
+    },
+    "Frequency": {
+      "label": "Compras en el período",
+      "median": 4.0,
+      "bins": [
+        {
+          "lower": 0.5,
+          "upper": 1.5,
+          "customers": 167,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1.5,
+          "upper": 2.5,
+          "customers": 145,
+          "upperInclusive": false
+        },
+        {
+          "lower": 2.5,
+          "upper": 3.5,
+          "customers": 132,
+          "upperInclusive": false
+        },
+        {
+          "lower": 3.5,
+          "upper": 4.5,
+          "customers": 154,
+          "upperInclusive": false
+        },
+        {
+          "lower": 4.5,
+          "upper": 5.5,
+          "customers": 63,
+          "upperInclusive": false
+        },
+        {
+          "lower": 5.5,
+          "upper": 6.5,
+          "customers": 73,
+          "upperInclusive": false
+        },
+        {
+          "lower": 6.5,
+          "upper": 7.5,
+          "customers": 81,
+          "upperInclusive": false
+        },
+        {
+          "lower": 7.5,
+          "upper": 8.5,
+          "customers": 63,
+          "upperInclusive": false
+        },
+        {
+          "lower": 8.5,
+          "upper": 9.5,
+          "customers": 44,
+          "upperInclusive": false
+        },
+        {
+          "lower": 9.5,
+          "upper": 10.5,
+          "customers": 31,
+          "upperInclusive": false
+        },
+        {
+          "lower": 10.5,
+          "upper": 11.5,
+          "customers": 27,
+          "upperInclusive": false
+        },
+        {
+          "lower": 11.5,
+          "upper": 12.5,
+          "customers": 20,
+          "upperInclusive": true
+        }
+      ]
+    },
+    "Monetary": {
+      "label": "Valor con margen (u.m.)",
+      "median": 75.0,
+      "bins": [
+        {
+          "lower": 6.25,
+          "upper": 90.0,
+          "customers": 541,
+          "upperInclusive": false
+        },
+        {
+          "lower": 90.0,
+          "upper": 173.75,
+          "customers": 115,
+          "upperInclusive": false
+        },
+        {
+          "lower": 173.75,
+          "upper": 257.5,
+          "customers": 54,
+          "upperInclusive": false
+        },
+        {
+          "lower": 257.5,
+          "upper": 341.25,
+          "customers": 38,
+          "upperInclusive": false
+        },
+        {
+          "lower": 341.25,
+          "upper": 425.0,
+          "customers": 43,
+          "upperInclusive": false
+        },
+        {
+          "lower": 425.0,
+          "upper": 508.75,
+          "customers": 29,
+          "upperInclusive": false
+        },
+        {
+          "lower": 508.75,
+          "upper": 592.5,
+          "customers": 26,
+          "upperInclusive": false
+        },
+        {
+          "lower": 592.5,
+          "upper": 676.25,
+          "customers": 27,
+          "upperInclusive": false
+        },
+        {
+          "lower": 676.25,
+          "upper": 760.0,
+          "customers": 37,
+          "upperInclusive": false
+        },
+        {
+          "lower": 760.0,
+          "upper": 843.75,
+          "customers": 12,
+          "upperInclusive": false
+        },
+        {
+          "lower": 843.75,
+          "upper": 927.5,
+          "customers": 15,
+          "upperInclusive": false
+        },
+        {
+          "lower": 927.5,
+          "upper": 1011.25,
+          "customers": 9,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1011.25,
+          "upper": 1095.0,
+          "customers": 19,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1095.0,
+          "upper": 1178.75,
+          "customers": 2,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1178.75,
+          "upper": 1262.5,
+          "customers": 10,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1262.5,
+          "upper": 1346.25,
+          "customers": 0,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1346.25,
+          "upper": 1430.0,
+          "customers": 10,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1430.0,
+          "upper": 1513.75,
+          "customers": 2,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1513.75,
+          "upper": 1597.5,
+          "customers": 3,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1597.5,
+          "upper": 1681.25,
+          "customers": 0,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1681.25,
+          "upper": 1765.0,
+          "customers": 2,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1765.0,
+          "upper": 1848.75,
+          "customers": 0,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1848.75,
+          "upper": 1932.5,
+          "customers": 4,
+          "upperInclusive": false
+        },
+        {
+          "lower": 1932.5,
+          "upper": 2016.25,
+          "customers": 0,
+          "upperInclusive": false
+        },
+        {
+          "lower": 2016.25,
+          "upper": 2100.0,
+          "customers": 2,
+          "upperInclusive": true
+        }
+      ]
+    }
+  },
+  "quantiles": [
+    {
+      "quantile": 0.0,
+      "Recency": 0.0,
+      "Frequency": 1.0,
+      "Monetary": 6.25
+    },
+    {
+      "quantile": 0.2,
+      "Recency": 2.0,
+      "Frequency": 2.0,
+      "Monetary": 25.0
+    },
+    {
+      "quantile": 0.4,
+      "Recency": 4.0,
+      "Frequency": 3.0,
+      "Monetary": 56.25
+    },
+    {
+      "quantile": 0.5,
+      "Recency": 5.0,
+      "Frequency": 4.0,
+      "Monetary": 75.0
+    },
+    {
+      "quantile": 0.6,
+      "Recency": 7.0,
+      "Frequency": 5.0,
+      "Monetary": 120.0
+    },
+    {
+      "quantile": 0.8,
+      "Recency": 12.0,
+      "Frequency": 7.0,
+      "Monetary": 450.0
+    },
+    {
+      "quantile": 1.0,
+      "Recency": 24.0,
+      "Frequency": 12.0,
+      "Monetary": 2100.0
+    }
+  ],
+  "correlations": [
+    {
+      "variable": "Recency",
+      "Recency": 1.0,
+      "Frequency": -0.288376441484593,
+      "Monetary": -0.119523489629587,
+      "Average ticket": 0.032588032889393
+    },
+    {
+      "variable": "Frequency",
+      "Recency": -0.288376441484593,
+      "Frequency": 1.0,
+      "Monetary": 0.521311815205721,
+      "Average ticket": 0.008218605454039
+    },
+    {
+      "variable": "Monetary",
+      "Recency": -0.119523489629587,
+      "Frequency": 0.521311815205721,
+      "Monetary": 1.0,
+      "Average ticket": 0.809126021174472
+    },
+    {
+      "variable": "Average ticket",
+      "Recency": 0.032588032889393,
+      "Frequency": 0.008218605454039,
+      "Monetary": 0.809126021174472,
+      "Average ticket": 1.0
+    }
+  ],
+  "scoring": {
+    "method": "Percentiles globales p20/p40/p60/p80; intervalos cerrados por la derecha; empates no divididos.",
+    "cuts": [
+      {
+        "quantile": 0.2,
+        "Recency": 2.0,
+        "Frequency": 2.0,
+        "Monetary": 25.0
+      },
+      {
+        "quantile": 0.4,
+        "Recency": 4.0,
+        "Frequency": 3.0,
+        "Monetary": 56.25
+      },
+      {
+        "quantile": 0.6,
+        "Recency": 7.0,
+        "Frequency": 5.0,
+        "Monetary": 120.0
+      },
+      {
+        "quantile": 0.8,
+        "Recency": 12.0,
+        "Frequency": 7.0,
+        "Monetary": 450.0
+      }
+    ],
+    "intervals": [
+      {
+        "variable": "Recency",
+        "score": 5,
+        "lower": null,
+        "upper": 2.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 0.0,
+        "observedMax": 2.0,
+        "customers": 241,
+        "customerShare": 24.1
+      },
+      {
+        "variable": "Recency",
+        "score": 4,
+        "lower": 2.0,
+        "upper": 4.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 3.0,
+        "observedMax": 4.0,
+        "customers": 170,
+        "customerShare": 17.0
+      },
+      {
+        "variable": "Recency",
+        "score": 3,
+        "lower": 4.0,
+        "upper": 7.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 5.0,
+        "observedMax": 7.0,
+        "customers": 221,
+        "customerShare": 22.1
+      },
+      {
+        "variable": "Recency",
+        "score": 2,
+        "lower": 7.0,
+        "upper": 12.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 8.0,
+        "observedMax": 12.0,
+        "customers": 202,
+        "customerShare": 20.2
+      },
+      {
+        "variable": "Recency",
+        "score": 1,
+        "lower": 12.0,
+        "upper": null,
+        "lowerInclusive": false,
+        "upperInclusive": false,
+        "observedMin": 13.0,
+        "observedMax": 24.0,
+        "customers": 166,
+        "customerShare": 16.6
+      },
+      {
+        "variable": "Frequency",
+        "score": 1,
+        "lower": null,
+        "upper": 2.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 1.0,
+        "observedMax": 2.0,
+        "customers": 312,
+        "customerShare": 31.2
+      },
+      {
+        "variable": "Frequency",
+        "score": 2,
+        "lower": 2.0,
+        "upper": 3.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 3.0,
+        "observedMax": 3.0,
+        "customers": 132,
+        "customerShare": 13.2
+      },
+      {
+        "variable": "Frequency",
+        "score": 3,
+        "lower": 3.0,
+        "upper": 5.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 4.0,
+        "observedMax": 5.0,
+        "customers": 217,
+        "customerShare": 21.7
+      },
+      {
+        "variable": "Frequency",
+        "score": 4,
+        "lower": 5.0,
+        "upper": 7.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 6.0,
+        "observedMax": 7.0,
+        "customers": 154,
+        "customerShare": 15.4
+      },
+      {
+        "variable": "Frequency",
+        "score": 5,
+        "lower": 7.0,
+        "upper": null,
+        "lowerInclusive": false,
+        "upperInclusive": false,
+        "observedMin": 8.0,
+        "observedMax": 12.0,
+        "customers": 185,
+        "customerShare": 18.5
+      },
+      {
+        "variable": "Monetary",
+        "score": 1,
+        "lower": null,
+        "upper": 25.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 6.25,
+        "observedMax": 25.0,
+        "customers": 219,
+        "customerShare": 21.9
+      },
+      {
+        "variable": "Monetary",
+        "score": 2,
+        "lower": 25.0,
+        "upper": 56.25,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 26.25,
+        "observedMax": 56.25,
+        "customers": 183,
+        "customerShare": 18.3
+      },
+      {
+        "variable": "Monetary",
+        "score": 3,
+        "lower": 56.25,
+        "upper": 120.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 60.0,
+        "observedMax": 120.0,
+        "customers": 200,
+        "customerShare": 20.0
+      },
+      {
+        "variable": "Monetary",
+        "score": 4,
+        "lower": 120.0,
+        "upper": 450.0,
+        "lowerInclusive": false,
+        "upperInclusive": true,
+        "observedMin": 122.5,
+        "observedMax": 450.0,
+        "customers": 211,
+        "customerShare": 21.1
+      },
+      {
+        "variable": "Monetary",
+        "score": 5,
+        "lower": 450.0,
+        "upper": null,
+        "lowerInclusive": false,
+        "upperInclusive": false,
+        "observedMin": 500.0,
+        "observedMax": 2100.0,
+        "customers": 187,
+        "customerShare": 18.7
+      }
+    ],
+    "scoreCounts": {
+      "Recency": [
+        {
+          "score": 1,
+          "customers": 166,
+          "customerShare": 16.6
+        },
+        {
+          "score": 2,
+          "customers": 202,
+          "customerShare": 20.2
+        },
+        {
+          "score": 3,
+          "customers": 221,
+          "customerShare": 22.1
+        },
+        {
+          "score": 4,
+          "customers": 170,
+          "customerShare": 17.0
+        },
+        {
+          "score": 5,
+          "customers": 241,
+          "customerShare": 24.1
+        }
+      ],
+      "Frequency": [
+        {
+          "score": 1,
+          "customers": 312,
+          "customerShare": 31.2
+        },
+        {
+          "score": 2,
+          "customers": 132,
+          "customerShare": 13.2
+        },
+        {
+          "score": 3,
+          "customers": 217,
+          "customerShare": 21.7
+        },
+        {
+          "score": 4,
+          "customers": 154,
+          "customerShare": 15.4
+        },
+        {
+          "score": 5,
+          "customers": 185,
+          "customerShare": 18.5
+        }
+      ],
+      "Monetary": [
+        {
+          "score": 1,
+          "customers": 219,
+          "customerShare": 21.9
+        },
+        {
+          "score": 2,
+          "customers": 183,
+          "customerShare": 18.3
+        },
+        {
+          "score": 3,
+          "customers": 200,
+          "customerShare": 20.0
+        },
+        {
+          "score": 4,
+          "customers": 211,
+          "customerShare": 21.1
+        },
+        {
+          "score": 5,
+          "customers": 187,
+          "customerShare": 18.7
+        }
+      ]
+    },
+    "examples": [
+      {
+        "segment": "Campeones",
+        "Recency": 3,
+        "Frequency": 11,
+        "Monetary": 192.5,
+        "R_Score": 4,
+        "F_Score": 5,
+        "M_Score": 4,
+        "RFM_Score": "454"
+      },
+      {
+        "segment": "Leales",
+        "Recency": 2,
+        "Frequency": 8,
+        "Monetary": 120.0,
+        "R_Score": 5,
+        "F_Score": 5,
+        "M_Score": 3,
+        "RFM_Score": "553"
+      },
+      {
+        "segment": "Potenciales",
+        "Recency": 6,
+        "Frequency": 3,
+        "Monetary": 375.0,
+        "R_Score": 3,
+        "F_Score": 2,
+        "M_Score": 4,
+        "RFM_Score": "324"
+      },
+      {
+        "segment": "Ocasionales recientes",
+        "Recency": 3,
+        "Frequency": 1,
+        "Monetary": 7.5,
+        "R_Score": 4,
+        "F_Score": 1,
+        "M_Score": 1,
+        "RFM_Score": "411"
+      },
+      {
+        "segment": "En riesgo de alto valor",
+        "Recency": 11,
+        "Frequency": 3,
+        "Monetary": 450.0,
+        "R_Score": 2,
+        "F_Score": 2,
+        "M_Score": 4,
+        "RFM_Score": "224"
+      },
+      {
+        "segment": "Baja actividad y valor",
+        "Recency": 8,
+        "Frequency": 4,
+        "Monetary": 30.0,
+        "R_Score": 2,
+        "F_Score": 3,
+        "M_Score": 2,
+        "RFM_Score": "232"
+      }
+    ],
+    "rules": [
+      {
+        "segment": "Campeones",
+        "rule": "R ≥ 4, F ≥ 4, M ≥ 4",
+        "interpretation": "Compra reciente, recurrente y de alto valor."
+      },
+      {
+        "segment": "Leales",
+        "rule": "R ≥ 3, F ≥ 4, excluyendo Campeones",
+        "interpretation": "Recurrencia alta; cuidar la relación y desarrollar valor."
+      },
+      {
+        "segment": "Potenciales",
+        "rule": "R ≥ 3, F ≤ 3, M ≥ 3",
+        "interpretation": "Valor medio/alto con espacio para desarrollar frecuencia."
+      },
+      {
+        "segment": "Ocasionales recientes",
+        "rule": "R ≥ 3, F ≤ 3, M ≤ 2",
+        "interpretation": "Compra relativamente reciente, menor recurrencia y valor."
+      },
+      {
+        "segment": "En riesgo de alto valor",
+        "rule": "R ≤ 2 y (F ≥ 4 o M ≥ 4)",
+        "interpretation": "Historial valioso que conviene revisar y recuperar si procede."
+      },
+      {
+        "segment": "Baja actividad y valor",
+        "rule": "R ≤ 2, F ≤ 3, M ≤ 3",
+        "interpretation": "Menor prioridad de inversión según el historial disponible."
+      }
+    ]
+  },
+  "segments": [
+    {
+      "segment": "Campeones",
+      "customers": 92,
+      "customerShare": 9.2,
+      "ageMean": 40.33695652173913,
+      "ticketMean": 308.4782608695652,
+      "recencyMean": 2.054347826086957,
+      "frequencyMean": 8.684782608695652,
+      "monetaryMean": 788.4619565217391,
+      "monetaryTotal": 72538.5,
+      "dominantCategory": "Beauty (71.7%)",
+      "dominantRegion": "N (29.3%)",
+      "monetaryShare": 29.35438443141397,
+      "color": "#19725C",
+      "categoryComposition": {
+        "Beauty": 71.73913043478261,
+        "Clothing": 28.26086956521739,
+        "Electronics": 0.0
+      }
+    },
+    {
+      "segment": "Leales",
+      "customers": 194,
+      "customerShare": 19.4,
+      "ageMean": 41.75773195876289,
+      "ticketMean": 115.72164948453609,
+      "recencyMean": 3.845360824742268,
+      "frequencyMean": 8.108247422680412,
+      "monetaryMean": 283.60051546391753,
+      "monetaryTotal": 55018.5,
+      "dominantCategory": "Beauty (55.7%)",
+      "dominantRegion": "E (29.9%)",
+      "monetaryShare": 22.26451056803972,
+      "color": "#25689D",
+      "categoryComposition": {
+        "Beauty": 55.670103092783506,
+        "Clothing": 44.329896907216494,
+        "Electronics": 0.0
+      }
+    },
+    {
+      "segment": "Potenciales",
+      "customers": 162,
+      "customerShare": 16.2,
+      "ageMean": 40.54320987654321,
+      "ticketMean": 358.641975308642,
+      "recencyMean": 3.567901234567901,
+      "frequencyMean": 3.191358024691358,
+      "monetaryMean": 331.17283950617286,
+      "monetaryTotal": 53650.0,
+      "dominantCategory": "Beauty (40.1%)",
+      "dominantRegion": "E (27.2%)",
+      "monetaryShare": 21.71071534075504,
+      "color": "#8857A3",
+      "categoryComposition": {
+        "Beauty": 40.123456790123456,
+        "Clothing": 33.95061728395062,
+        "Electronics": 25.925925925925924
+      }
+    },
+    {
+      "segment": "Ocasionales recientes",
+      "customers": 184,
+      "customerShare": 18.4,
+      "ageMean": 40.91847826086956,
+      "ticketMean": 33.016304347826086,
+      "recencyMean": 3.244565217391304,
+      "frequencyMean": 2.434782608695652,
+      "monetaryMean": 22.706521739130434,
+      "monetaryTotal": 4178.0,
+      "dominantCategory": "Beauty (37.0%)",
+      "dominantRegion": "E (27.7%)",
+      "monetaryShare": 1.690724486368584,
+      "color": "#A8811F",
+      "categoryComposition": {
+        "Beauty": 36.95652173913043,
+        "Clothing": 28.26086956521739,
+        "Electronics": 34.78260869565217
+      }
+    },
+    {
+      "segment": "En riesgo de alto valor",
+      "customers": 156,
+      "customerShare": 15.6,
+      "ageMean": 42.03846153846154,
+      "ticketMean": 331.4423076923077,
+      "recencyMean": 12.967948717948717,
+      "frequencyMean": 4.333333333333333,
+      "monetaryMean": 348.77403846153845,
+      "monetaryTotal": 54408.75,
+      "dominantCategory": "Electronics (53.8%)",
+      "dominantRegion": "S (26.9%)",
+      "monetaryShare": 22.017761105243352,
+      "color": "#C55338",
+      "categoryComposition": {
+        "Beauty": 0.0,
+        "Clothing": 46.15384615384615,
+        "Electronics": 53.84615384615385
+      }
+    },
+    {
+      "segment": "Baja actividad y valor",
+      "customers": 212,
+      "customerShare": 21.2,
+      "ageMean": 42.09905660377358,
+      "ticketMean": 62.16981132075472,
+      "recencyMean": 14.278301886792454,
+      "frequencyMean": 2.466981132075472,
+      "monetaryMean": 34.5247641509434,
+      "monetaryTotal": 7319.25,
+      "dominantCategory": "Electronics (71.7%)",
+      "dominantRegion": "E (29.2%)",
+      "monetaryShare": 2.961904068179335,
+      "color": "#78818A",
+      "categoryComposition": {
+        "Beauty": 0.0,
+        "Clothing": 28.30188679245283,
+        "Electronics": 71.69811320754717
+      }
+    }
+  ],
+  "segmentOrder": [
+    "Campeones",
+    "Leales",
+    "Potenciales",
+    "Ocasionales recientes",
+    "En riesgo de alto valor",
+    "Baja actividad y valor"
+  ],
+  "sensitivity": {
+    "changedCustomers": 388,
+    "changedShare": 38.800000000000004,
+    "reference": "Scoring dentro de cada categoría con las mismas reglas de segmentos",
+    "cutsByCategory": [
+      {
+        "category": "Beauty",
+        "variable": "Recency",
+        "p20": 1.0,
+        "p40": 2.0,
+        "p60": 4.0,
+        "p80": 5.0
+      },
+      {
+        "category": "Beauty",
+        "variable": "Frequency",
+        "p20": 3.0,
+        "p40": 5.0,
+        "p60": 7.0,
+        "p80": 10.0
+      },
+      {
+        "category": "Beauty",
+        "variable": "Monetary",
+        "p20": 43.75,
+        "p40": 79.65,
+        "p60": 161.99999999999994,
+        "p80": 728.0000000000005
+      },
+      {
+        "category": "Clothing",
+        "variable": "Recency",
+        "p20": 2.0,
+        "p40": 5.0,
+        "p60": 7.0,
+        "p80": 10.0
+      },
+      {
+        "category": "Clothing",
+        "variable": "Frequency",
+        "p20": 2.0,
+        "p40": 4.0,
+        "p60": 6.0,
+        "p80": 7.0
+      },
+      {
+        "category": "Clothing",
+        "variable": "Monetary",
+        "p20": 31.25,
+        "p40": 60.0,
+        "p60": 105.0,
+        "p80": 525.0
+      },
+      {
+        "category": "Electronics",
+        "variable": "Recency",
+        "p20": 5.0,
+        "p40": 10.0,
+        "p60": 14.0,
+        "p80": 19.0
+      },
+      {
+        "category": "Electronics",
+        "variable": "Frequency",
+        "p20": 1.0,
+        "p40": 2.0,
+        "p60": 3.0,
+        "p80": 4.0
+      },
+      {
+        "category": "Electronics",
+        "variable": "Monetary",
+        "p20": 15.0,
+        "p40": 30.0,
+        "p60": 75.0,
+        "p80": 300.0
+      }
+    ],
+    "transition": [
+      {
+        "fromSegment": "Campeones",
+        "Campeones": 37,
+        "Leales": 29,
+        "Potenciales": 26,
+        "Ocasionales recientes": 0,
+        "En riesgo de alto valor": 0,
+        "Baja actividad y valor": 0
+      },
+      {
+        "fromSegment": "Leales",
+        "Campeones": 10,
+        "Leales": 87,
+        "Potenciales": 18,
+        "Ocasionales recientes": 29,
+        "En riesgo de alto valor": 44,
+        "Baja actividad y valor": 6
+      },
+      {
+        "fromSegment": "Potenciales",
+        "Campeones": 13,
+        "Leales": 3,
+        "Potenciales": 113,
+        "Ocasionales recientes": 8,
+        "En riesgo de alto valor": 17,
+        "Baja actividad y valor": 8
+      },
+      {
+        "fromSegment": "Ocasionales recientes",
+        "Campeones": 0,
+        "Leales": 13,
+        "Potenciales": 7,
+        "Ocasionales recientes": 147,
+        "En riesgo de alto valor": 0,
+        "Baja actividad y valor": 17
+      },
+      {
+        "fromSegment": "En riesgo de alto valor",
+        "Campeones": 5,
+        "Leales": 9,
+        "Potenciales": 24,
+        "Ocasionales recientes": 0,
+        "En riesgo de alto valor": 110,
+        "Baja actividad y valor": 8
+      },
+      {
+        "fromSegment": "Baja actividad y valor",
+        "Campeones": 0,
+        "Leales": 19,
+        "Potenciales": 15,
+        "Ocasionales recientes": 35,
+        "En riesgo de alto valor": 25,
+        "Baja actividad y valor": 118
+      }
+    ],
+    "countsByCategoryReference": [
+      {
+        "segment": "Campeones",
+        "customers": 65
+      },
+      {
+        "segment": "Leales",
+        "customers": 160
+      },
+      {
+        "segment": "Potenciales",
+        "customers": 203
+      },
+      {
+        "segment": "Ocasionales recientes",
+        "customers": 219
+      },
+      {
+        "segment": "En riesgo de alto valor",
+        "customers": 196
+      },
+      {
+        "segment": "Baja actividad y valor",
+        "customers": 157
+      }
+    ],
+    "riskByCategory": [
+      {
+        "category": "Beauty",
+        "globalRisk": 0,
+        "categoryRelativeRisk": 61
+      },
+      {
+        "category": "Clothing",
+        "globalRisk": 72,
+        "categoryRelativeRisk": 64
+      },
+      {
+        "category": "Electronics",
+        "globalRisk": 84,
+        "categoryRelativeRisk": 71
+      }
+    ],
+    "riskMovements": {
+      "stayed": 110,
+      "left": 46,
+      "entered": 86,
+      "globalTotal": 156,
+      "categoryRelativeTotal": 196
+    }
+  },
+  "priorities": [
+    {
+      "decision": "Retener Campeones y Leales",
+      "customers": 286,
+      "customerShare": 28.6,
+      "monetaryTotal": 127557.0,
+      "monetaryShare": 51.618894999453694
+    },
+    {
+      "decision": "Desarrollar Potenciales",
+      "customers": 162,
+      "customerShare": 16.2,
+      "monetaryTotal": 53650.0,
+      "monetaryShare": 21.71071534075504
+    },
+    {
+      "decision": "Revisar recuperación de alto valor",
+      "customers": 156,
+      "customerShare": 15.6,
+      "monetaryTotal": 54408.75,
+      "monetaryShare": 22.017761105243352
+    },
+    {
+      "decision": "Mantener contacto de bajo costo",
+      "customers": 396,
+      "customerShare": 39.6,
+      "monetaryTotal": 11497.25,
+      "monetaryShare": 4.65262855454792
+    }
+  ],
+  "actionPlans": [
+    {
+      "segment": "Campeones",
+      "profile": "8.68 compras; Monetary de 788.46 u.m.",
+      "action": "Acceso anticipado a novedades y recomendaciones complementarias a su categoría, con atención preferente.",
+      "kpis": "Recompra90; CompraOtraCategoria90; MargenIncremental90.",
+      "consideration": "Premiar la relación sin subsidiar compras que habrían ocurrido de todos modos."
+    },
+    {
+      "segment": "Leales",
+      "profile": "8.11 compras; ticket de 115.72 u.m.",
+      "action": "Recomendaciones de paquetes o complementos que eleven el valor de compras ya recurrentes.",
+      "kpis": "Frecuencia90; Ticket90; MargenIncremental90.",
+      "consideration": "Un ticket mayor no basta si cae la recurrencia o se erosiona el margen."
+    },
+    {
+      "segment": "Potenciales",
+      "profile": "3.19 compras; ticket de 358.64 u.m.",
+      "action": "Recordatorios de reposición cuando correspondan y recomendaciones relacionadas con su compra para desarrollar recurrencia.",
+      "kpis": "Recompra90; Recurrencia90; MargenIncremental90.",
+      "consideration": "No forzar la frecuencia de categorías con ciclos largos ni asumir que son clientes nuevos."
+    },
+    {
+      "segment": "Ocasionales recientes",
+      "profile": "2.43 compras; ticket de 33.02 u.m.",
+      "action": "Seguimiento automatizado de bajo costo con contenido útil y recomendaciones accesibles; probar un paquete solo si deja contribución positiva.",
+      "kpis": "Recompra90; Ticket90; MargenIncremental90.",
+      "consideration": "Su ticket de 33.02 u.m. limita el costo de contacto e incentivo viable."
+    },
+    {
+      "segment": "En riesgo de alto valor",
+      "profile": "12.97 días de recencia; Monetary de 348.77 u.m.",
+      "action": "Revisar recencia frente a categoría e historial; después, probar una invitación personalizada a volver con incentivo limitado si resulta necesario.",
+      "kpis": "Reactivacion90; Frecuencia90; MargenIncremental90.",
+      "consideration": "Los 12.97 días medios no confirman abandono; el 53.8% del segmento es Electronics."
+    },
+    {
+      "segment": "Baja actividad y valor",
+      "profile": "14.28 días de recencia; Monetary de 34.52 u.m.",
+      "action": "Comunicación automatizada de baja intensidad y recomendaciones por categoría, con presupuesto acotado.",
+      "kpis": "Reactivacion90; CostoReactivacion90; MargenIncremental90.",
+      "consideration": "Evitar que el costo de recuperación supere la contribución; bajo valor histórico no significa valor futuro nulo."
+    }
+  ],
+  "kpis": [
+    {
+      "name": "Recompra90",
+      "definition": "Clientes con ≥1 compra en 90 días / clientes asignados × 100.",
+      "additionalData": "Asignación, ID y fecha de compras posteriores."
+    },
+    {
+      "name": "CompraOtraCategoria90",
+      "definition": "Clientes que compran una categoría distinta de su principal al inicio / clientes asignados × 100. Mide compra fuera de la principal, no una categoría nunca comprada.",
+      "additionalData": "Categoría inicial y categorías de las compras posteriores."
+    },
+    {
+      "name": "Frecuencia90",
+      "definition": "Número total de compras en 90 días / clientes asignados, incluyendo ceros.",
+      "additionalData": "Transacciones e ID del cliente."
+    },
+    {
+      "name": "Ticket90",
+      "definition": "Importe neto de ventas en 90 días / número de compras del período. Es un promedio por compra, no la media de tickets por cliente del perfil.",
+      "additionalData": "Importe neto y definición consistente de compra/devolución."
+    },
+    {
+      "name": "Recurrencia90",
+      "definition": "Clientes con ≥2 compras en 90 días / clientes asignados × 100.",
+      "additionalData": "ID y fechas de compras posteriores."
+    },
+    {
+      "name": "Reactivacion90",
+      "definition": "Clientes de un segmento de menor actividad que compran en 90 días / clientes asignados de ese segmento × 100.",
+      "additionalData": "Segmento inicial y compras posteriores. Es reactivación operativa, no prueba de churn previo."
+    },
+    {
+      "name": "CostoReactivacion90",
+      "definition": "Costo total de la campaña / clientes del tratamiento que vuelven a comprar. No equivale a costo por reactivación incremental.",
+      "additionalData": "Costos y compradores del tratamiento."
+    },
+    {
+      "name": "MargenIncremental90",
+      "definition": "Media por cliente de (valor con margen del período − costos adicionales de campaña) en T, menos la misma media en C. Incluir clientes sin compra y descontar cada costo una sola vez.",
+      "additionalData": "Valor con margen posterior, costos no incluidos ya en ese valor y asignación T/C."
+    }
+  ],
+  "pilot": {
+    "windowDays": 90,
+    "windowIsProposal": true,
+    "assignment": "Aleatoria a tratamiento y control dentro de cada segmento y categoría",
+    "rateComparison": "T−C en puntos porcentuales",
+    "meanComparison": "T−C en sus unidades",
+    "includeNonBuyers": true,
+    "causalImpactObserved": false,
+    "clvComputed": false,
+    "clvHorizonYearsIfEstimated": 3
+  },
+  "scatter": [
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 105.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 105.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 105.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 105.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 105.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 21.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 21.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 21.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 18.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 18.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 18.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 26.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 26.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 26.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 27.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 27.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 31.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 31.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 31.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 31.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 45.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 45.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 45.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 45.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 45.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 52.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 52.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 36.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 36.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 36.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 36.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 42.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 42.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 31.25,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 37.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 43.75,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 45.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 45.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 75.0,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 87.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 87.5,
+      "segment": "Baja actividad y valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 450.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 450.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 450.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 450.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 450.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 750.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 750.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 750.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 900.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 900.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 122.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 122.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 525.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 630.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 630.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 630.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 735.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 735.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 735.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 735.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1050.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1225.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1225.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 140.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 140.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 140.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 720.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 720.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 840.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 840.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 840.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1000.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1000.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1000.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1200.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1400.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1400.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1400.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1400.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 135.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 135.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 135.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 157.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 675.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 675.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 810.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 810.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 810.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 810.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 1575.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 125.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 150.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 150.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 150.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 175.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 750.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 900.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 900.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 1750.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 137.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 137.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 137.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 165.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 192.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 192.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 192.5,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 825.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 990.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 1155.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 1155.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 1375.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 1375.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 1925.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 1925.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 1925.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 126.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 180.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 180.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 900.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 1080.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 1260.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 2100.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 2100.0,
+      "segment": "Campeones"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 125.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 125.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 125.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 125.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 125.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 150.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 150.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 210.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 210.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 210.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 350.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 350.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 350.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 350.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 375.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 375.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 375.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 360.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 360.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 360.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 500.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 500.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 500.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 500.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 375.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 375.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 625.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 750.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 52.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 54.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 90.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 90.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 90.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 105.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 450.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 630.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 750.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 900.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 43.75,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 43.75,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 43.75,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 43.75,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 61.25,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 63.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 63.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 63.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 105.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 122.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 525.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 735.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 875.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 875.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1225.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 72.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 72.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 72.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 100.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 100.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 720.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 720.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1000.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1400.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1400.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 67.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 67.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 81.0,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 157.5,
+      "segment": "En riesgo de alto valor"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 37.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 37.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 45.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 54.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 54.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 63.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 63.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 63.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 63.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 63.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 63.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 63.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 90.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 90.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 105.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 105.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 105.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 540.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 540.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 630.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 630.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 750.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 750.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 6,
+      "Monetary": 1050.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 43.75,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 43.75,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 43.75,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 52.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 61.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 61.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 61.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 61.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 61.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 61.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 63.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 73.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 73.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 73.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 73.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 105.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 105.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 105.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 525.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 630.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 630.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 875.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1050.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1050.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1225.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 7,
+      "Monetary": 1225.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 50.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 50.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 50.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 60.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 70.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 70.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 70.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 72.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 72.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 84.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 84.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 100.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 100.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 120.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 120.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 120.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 120.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 120.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 140.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 720.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 720.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 840.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 840.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1000.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1000.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1200.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1200.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 8,
+      "Monetary": 1400.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 56.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 56.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 56.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 56.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 56.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 67.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 67.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 67.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 78.75,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 78.75,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 81.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 81.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 81.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 81.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 81.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 81.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 94.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 94.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 112.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 112.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 157.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 157.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 810.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 810.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 945.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 945.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 1350.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 1575.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 9,
+      "Monetary": 1575.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 62.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 62.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 87.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 90.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 90.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 90.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 90.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 125.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 150.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 150.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 175.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 750.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 900.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 1250.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 1500.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 10,
+      "Monetary": 1750.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 68.75,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 82.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 82.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 96.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 96.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 96.25,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 99.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 115.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 115.5,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 165.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 11,
+      "Monetary": 1925.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 75.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 90.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 108.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 126.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 126.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 126.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 126.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 126.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 210.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 1080.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 12,
+      "Monetary": 1500.0,
+      "segment": "Leales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 6.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 7.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 8.75,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 9.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 10.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 12.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 15.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 17.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 18.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 21.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 21.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 21.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 30.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 18.75,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 18.75,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 18.75,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 22.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 26.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 26.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 26.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 26.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 26.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 27.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 27.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 27.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 31.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 31.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 31.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 31.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 45.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 52.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 25.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 30.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 35.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 36.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 36.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 36.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 42.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 42.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 42.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 42.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 42.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 50.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 31.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 31.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 31.25,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 37.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 43.75,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 45.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 45.0,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 52.5,
+      "segment": "Ocasionales recientes"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 90.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 105.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 105.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 125.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 125.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 1,
+      "Monetary": 175.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 150.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 180.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 210.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 250.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 350.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 350.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 2,
+      "Monetary": 350.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 225.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 270.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 315.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 375.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 375.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 375.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 375.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 3,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 60.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 70.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 300.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 360.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 360.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 360.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 360.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 420.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 500.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 500.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 500.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 600.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 4,
+      "Monetary": 700.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 62.5,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 62.5,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 62.5,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 62.5,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 62.5,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 75.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 87.5,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 87.5,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 87.5,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 375.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 375.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 375.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 375.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 450.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 525.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 625.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 625.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 625.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 625.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 625.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 625.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 750.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 750.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 875.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 875.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 875.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 875.0,
+      "segment": "Potenciales"
+    },
+    {
+      "Frequency": 5,
+      "Monetary": 875.0,
+      "segment": "Potenciales"
+    }
+  ]
+}

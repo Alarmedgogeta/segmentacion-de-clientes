@@ -1,0 +1,8 @@
+# Siete días de antigüedad antes de instalar cualquier versión.
+minimumReleaseAge: 10080
+minimumReleaseAgeStrict: true
+minimumReleaseAgeIgnoreMissingTime: false
+minimumReleaseAgeExclude: []
+trustLockfile: false
+savePrefix: ''
+engineStrict: true
